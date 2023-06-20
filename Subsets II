@@ -1,0 +1,13 @@
+def subsetsWithDup(nums):
+    ans = []
+    for i in range(2**len(nums)):
+        a = []
+        for j in range(len(nums)):
+            if i & 1<<j:
+                a.append(nums[j])
+        if sorted(a) in ans:
+            continue
+        ans.append(sorted(a))
+    return ans
+subsetsWithDup = subsetsWithDup([4,4,4,1,4])
+>>[[],[4],[4,4],[4,4,4],[1],[1,4],[1,4,4],[1,4,4,4],[4,4,4,4],[1,4,4,4,4]]
