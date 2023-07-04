@@ -1,0 +1,34 @@
+def letterCasePermutation(str) -> List[str]:
+'''Input: Str
+    Output: a List of permutation of char in the string
+'''
+
+        index = 0
+        res=[]
+        slate = []
+        def permutation(index,slate, str,res):
+
+            if index ==len(s): #index is equal to the size of str
+                res.append(''.join(slate))  #add all the current elements in the slate to the result and return
+                return
+            if s[index].isdigit():   #Element is a number/digit
+                slate.append(s[index])   #add element to the slate
+                permutation(index+1,slate,str, res)  #return and increase the index 
+                slate.pop()  #remove the added element 
+            
+            else:
+                slate.append(s[index].lower())
+                permutation(index+1, slate , str, res)
+                slate.pop()
+                slate.append(s[index].upper())
+                permutation(index+1, slate ,str, res)
+                slate.pop()
+            
+            return res
+            
+
+      return permutation(index,slate,  str, res)
+
+letterCasePermutation('X12c3D')
+
+>> ['x12c3d', 'x12c3D', 'x12C3d', 'x12C3D', 'X12c3d', 'X12c3D', 'X12C3d', 'X12C3D']
