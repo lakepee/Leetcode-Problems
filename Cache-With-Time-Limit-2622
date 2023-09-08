@@ -1,0 +1,54 @@
+class TimeLimitedCache{
+    constructor() {
+        this.cache = new Object();
+        this.timeoutID = 0;
+        this.set = this.set.bind(this);
+    }
+
+    set(key, value, duration){
+        let isExisted = false;
+        if(key in this.cache){
+             isExisted = true
+             clearTimeout(this.timeoutID)
+        };
+        this.cache[key] = value;
+        this.timeoutID = setTimeout(()=>{
+            delete this.cache[key]
+            isExisted = false;
+        }, duration)
+        
+        return isExisted;
+    }
+    get(key){
+        if(key in this.cache){
+            return this.cache[key]
+        }
+        else return -1
+    }
+
+    count(){
+        return Object.keys(this.cache).length
+    }
+
+
+}
+
+timeLimitedCache = new TimeLimitedCache
+setTimeout(()=> console.log(set2 = timeLimitedCache.set(1,50, 1000)), 400)
+
+setTimeout(()=>{
+    get = timeLimitedCache.get(1)
+    console.log(get);
+}, 500)
+
+setTimeout(()=>{
+    console.log(timeLimitedCache.get(1));
+}, 1200)
+
+setTimeout(()=>{
+    console.log(timeLimitedCache.get(1));
+}, 2000)
+
+setTimeout(()=>{
+    console.log(timeLimitedCache.count());
+}, 2500)
